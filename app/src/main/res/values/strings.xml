@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Basic Trivia</string>
+    <string name="title_text">Basic Trivia</string>
+    <string name="true_button_text">TRUE</string>
+    <string name="false_button_text">FALSE</string>
+    <string name="next_button_text">NEXT</string>
+    <string name="previous_button_text">PREVIOUS</string>
+    <string name="placeHolder">Hello World! This is where we add our Questions!</string>
+    <string name="correct_answer">Correct Answer!</string>
+    <string name="incorrect_answer">Incorrect Answer!</string>
+    <string name="question_1_914">Question: 1/914</string>
+</resources>
