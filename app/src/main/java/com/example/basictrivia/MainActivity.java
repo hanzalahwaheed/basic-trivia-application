@@ -1,6 +1,10 @@
 package com.example.basictrivia;
 
+import android.graphics.Color;
+import android.graphics.drawable.Animatable;
 import android.os.Bundle;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -44,9 +48,11 @@ public class MainActivity extends AppCompatActivity {
         });
         binding.buttonTrue.setOnClickListener(v -> {
             checkAnswer(true);
+            updateQuestion();
         });
         binding.buttonFalse.setOnClickListener(v -> {
             checkAnswer(false);
+            updateQuestion();
         });
     }
 
@@ -55,8 +61,10 @@ public class MainActivity extends AppCompatActivity {
         int snackMessage = 0;
         if (userChoseCorrect == answer) {
             snackMessage = R.string.correct_answer;
+            randomAnimation();
         } else {
             snackMessage = R.string.incorrect_answer;
+            shakeAnimation();
         }
         Snackbar.make(binding.cardView, snackMessage, Snackbar.LENGTH_SHORT).show();
     }
@@ -69,5 +77,49 @@ public class MainActivity extends AppCompatActivity {
         String question = questionsList.get(currentQuestionIndex).getAnswer();
         binding.textViewQuestion.setText(question);
         updateCounter((ArrayList<Questions>) questionsList);
+    }
+
+    private void shakeAnimation(){
+        Animation shake = AnimationUtils.loadAnimation(MainActivity.this,
+                R.anim.shake_animation);
+        binding.cardView.setAnimation(shake);
+        shake.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                binding.textViewQuestion.setTextColor(Color.RED);
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                binding.textViewQuestion.setTextColor(Color.WHITE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+    }
+
+    private void randomAnimation(){
+        Animation shake = AnimationUtils.loadAnimation(MainActivity.this,
+                R.anim.random_animation);
+        binding.cardView.setAnimation(shake);
+        shake.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                binding.textViewQuestion.setTextColor(Color.GREEN);
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                binding.textViewQuestion.setTextColor(Color.WHITE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
     }
 }
